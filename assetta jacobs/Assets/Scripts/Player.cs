@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering.HighDefinition;
 using UnityEngine;
 
 public class Player : MonoBehaviour
