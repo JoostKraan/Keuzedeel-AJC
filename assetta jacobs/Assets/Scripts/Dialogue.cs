@@ -12,7 +12,8 @@ public class Dialogue : MonoBehaviour
     void Start()
     {
         textComp.text = string.Empty;
-        StartDialogue();
+        
+        
     }
     void StartDialogue()
     {
@@ -40,8 +41,6 @@ public class Dialogue : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-
-    
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
