@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;    
+using TMPro;
+using Unity.VisualScripting;
+using JetBrains.Annotations;
 
 public class Dialogue : MonoBehaviour
 {
@@ -9,11 +11,13 @@ public class Dialogue : MonoBehaviour
     public string[] lines;
     public float speed;
     private int index;
+    
+    
     void Start()
     {
         textComp.text = string.Empty;
-        
-        
+
+
     }
     void StartDialogue()
     {
@@ -22,7 +26,7 @@ public class Dialogue : MonoBehaviour
     }
     IEnumerator TypeLines()
     {
-        foreach (char c in lines[index].ToCharArray()) 
+        foreach (char c in lines[index].ToCharArray())
         {
             textComp.text += c;
             yield return new WaitForSeconds(speed);
@@ -30,11 +34,11 @@ public class Dialogue : MonoBehaviour
     }
     void NextLine()
     {
-        if (index < lines.Length -1)
+        if (index < lines.Length - 1)
         {
             index++;
             textComp.text = string.Empty;
-            StartCoroutine (TypeLines());
+            StartCoroutine(TypeLines());
         }
         else
         {
@@ -43,6 +47,7 @@ public class Dialogue : MonoBehaviour
     }
     void Update()
     {
+
         if (Input.GetMouseButtonDown(0))
         {
             if (textComp.text == lines[index])
@@ -54,6 +59,8 @@ public class Dialogue : MonoBehaviour
                 StopAllCoroutines();
                 textComp.text = lines[index];
             }
+
         }
     }
+    
 }
