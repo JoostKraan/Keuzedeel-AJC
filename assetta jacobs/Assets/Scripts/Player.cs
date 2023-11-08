@@ -9,10 +9,11 @@ public class Player : MonoBehaviour
     public Transform player;
     public Transform player_Obj;
     public Rigidbody rb;
-
+    
     public float rotationSpeed;
     private void Start()
     {
+        
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -31,5 +32,6 @@ public class Player : MonoBehaviour
         }
 
     }
+    
 
 }

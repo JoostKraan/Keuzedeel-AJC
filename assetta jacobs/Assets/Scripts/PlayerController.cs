@@ -8,12 +8,14 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5.0f; // Player movement speed
     public float rotationSpeed = 5.0f; // Player rotation speed
     public float gravity = 9.81f; // Gravitational acceleration
+    public GameObject canvas;
 
     private CharacterController characterController;
     private float verticalVelocity = 0.0f;
 
     private void Start()
     {
+        canvas = GameObject.Find("Canvas");
         characterController = GetComponent<CharacterController>();
     }
 
@@ -56,5 +58,14 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
+
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        canvas.SetActive(true);
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        canvas.SetActive(false);
     }
 }
