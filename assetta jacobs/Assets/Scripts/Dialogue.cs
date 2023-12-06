@@ -11,15 +11,16 @@ public class Dialogue : MonoBehaviour
     public string[] lines;
     public float speed;
     private int index;
+    public GameObject Dialoguebox;
     
     
     void Start()
     {
         textComp.text = string.Empty;
-
+        Dialoguebox = GameObject.Find("DialogueBox");
 
     }
-    void StartDialogue()
+    public void StartDialogue()
     {
         index = 0;
         StartCoroutine(TypeLines());

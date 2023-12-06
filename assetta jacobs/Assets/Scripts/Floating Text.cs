@@ -11,7 +11,7 @@ public class FloatingText : MonoBehaviour
     public Vector3 offset;
     void Start()
     {
-        maincam = Camera.main.transform;
+        //maincam = Camera.main.transform;
         unit = transform.parent;
         worldSpaceCanvas = GameObject.FindObjectOfType<Canvas>().transform;
         transform.SetParent(worldSpaceCanvas);
