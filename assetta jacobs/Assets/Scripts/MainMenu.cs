@@ -17,4 +17,8 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("Michel");
     }
+    public void PlayMisionTwo()
+    {
+        SceneManager.LoadScene("Sjoerd");
+    }
 }
