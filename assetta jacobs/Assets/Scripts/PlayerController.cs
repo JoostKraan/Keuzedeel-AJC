@@ -9,14 +9,21 @@ public class PlayerController : MonoBehaviour
     public float rotationSpeed = 5.0f; // Player rotation speed
     public float gravity = 9.81f; // Gravitational acceleration
     public GameObject canvas;
+    public GameObject meshToAnimate;
 
     private CharacterController characterController;
     private float verticalVelocity = 0.0f;
+
+    Animator animator;
+    HoldingItems holdingItems;
 
     private void Start()
     {
         canvas = GameObject.Find("Canvas");
         characterController = GetComponent<CharacterController>();
+
+        animator = meshToAnimate.gameObject.GetComponent<Animator>();
+        holdingItems = GetComponent<HoldingItems>();
     }
 
     private void Update()
@@ -29,6 +36,37 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDirection = cameraTransform.forward * verticalInput + cameraTransform.right * horizontalInput;
         moveDirection.y = 0; // Ensure no vertical movement
 
+        //animation
+        if (holdingItems.isHoldingSoup)
+        {
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+            {
+                animator.SetBool("Idle", false);
+                animator.SetBool("Walking", false);
+                animator.SetBool("HoldingSoupIdle", false);
+                animator.SetBool("HoldingSoupWalking", true);
+            }
+            else
+            {
+                animator.SetBool("Idle", false);
+                animator.SetBool("Walking", false);
+                animator.SetBool("HoldingSoupWalking", false);
+                animator.SetBool("HoldingSoupIdle", true);
+            }
+        }
+        else
+        {
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+            {
+                animator.SetBool("Idle", false);
+                animator.SetBool("Walking", true);
+            }
+            else
+            {
+                animator.SetBool("Walking", false);
+                animator.SetBool("Idle", true);
+            }
+        }
         // Normalize to maintain consistent movement speed in all directions
         if (moveDirection.magnitude > 1.0f)
         {
