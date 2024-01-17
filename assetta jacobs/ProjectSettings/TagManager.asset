@@ -8,6 +8,7 @@ TagManager:
   - InRangeOfSoup
   - inRangeOfSoupDelivery
   - Arrow
+  - OrbitTarget
   layers:
   - Default
   - TransparentFX

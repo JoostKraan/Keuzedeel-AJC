@@ -5,16 +5,23 @@ using UnityEngine;
 public class SoupMission : MonoBehaviour
 {
     HoldingItems holdingItems;
+    MissionManager missionManager;
+    PlayerController playerController;
+    CameraScript cameraScript;
     [SerializeField] GameObject placedSoup;
     [SerializeField] GameObject arrow;
     [SerializeField] GameObject deliveryArrow;
     [SerializeField] GameObject helpText;
     [SerializeField] GameObject helpDeliverSoupText;
+    [SerializeField] GameObject thankYouText;
     public bool isinRangeOfSoupDelivery = false;
-    private bool soupIsGiven = false;
+    public bool soupIsGiven = false;
     void Start()
     {
-        holdingItems = GameObject.FindObjectOfType<HoldingItems>();   
+        holdingItems = GameObject.FindObjectOfType<HoldingItems>();
+        missionManager = GameObject.FindObjectOfType<MissionManager>();
+        playerController = GameObject.FindObjectOfType<PlayerController>();
+        cameraScript= GameObject.FindObjectOfType<CameraScript>();
     }
 
     void Update()
@@ -27,9 +34,18 @@ public class SoupMission : MonoBehaviour
                 {
                     holdingItems.isHoldingSoup = false;
                     placedSoup.SetActive(true);
+                    helpDeliverSoupText.SetActive(false);
                     soupIsGiven = true;
                 }
             }
+        }
+        if(soupIsGiven)
+        {
+            thankYouText.SetActive(true);
+            missionManager.CompleteMission();
+            playerController.isAloudToMove = false;
+            cameraScript.isOrbiting = true;
+
         }
         if(helpText.active == true)
         {
@@ -44,8 +60,16 @@ public class SoupMission : MonoBehaviour
         if (other.gameObject.CompareTag("inRangeOfSoupDelivery"))
         {
             isinRangeOfSoupDelivery = true;
-            deliveryArrow.SetActive(false);
-            helpDeliverSoupText.SetActive(true);
+            if(!soupIsGiven)
+            {
+                deliveryArrow.SetActive(false);
+                helpDeliverSoupText.SetActive(true);
+            }
+            if (soupIsGiven)
+            {
+                deliveryArrow.SetActive(false);
+                helpDeliverSoupText.SetActive(false);
+            }
         }
         if (other.gameObject.CompareTag("Arrow"))
         {
@@ -61,8 +85,16 @@ public class SoupMission : MonoBehaviour
         if (other.gameObject.CompareTag("inRangeOfSoupDelivery"))
         {
             isinRangeOfSoupDelivery = false;
-            deliveryArrow.SetActive(true);
-            helpDeliverSoupText.SetActive(false);
+            if (!soupIsGiven)
+            {
+                deliveryArrow.SetActive(true);
+                helpDeliverSoupText.SetActive(false);
+            }
+            if (soupIsGiven)
+            {
+                deliveryArrow.SetActive(false);
+                helpDeliverSoupText.SetActive(false);
+            }
         }
         if (other.gameObject.CompareTag("Arrow"))
         {

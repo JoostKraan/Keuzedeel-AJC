@@ -12,10 +12,10 @@ public class MissionManager : MonoBehaviour
     public TMP_Text timerText;
     public AudioSource audioSource;
 
-    void Start()
-    {
-        MissionStart();
-    }
+    //void Start()
+    //{
+    //    MissionStart();
+    //}
 
     void MissionStart()
     {
