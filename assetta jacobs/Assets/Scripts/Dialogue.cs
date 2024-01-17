@@ -12,7 +12,10 @@ public class Dialogue : MonoBehaviour
     public float speed;
     private int index;
     public GameObject Dialoguebox;
-    
+
+    [Header("1st mission dialoge settings")]
+    public bool firstMission1stNPC = false;
+    [SerializeField] private GameObject soupArrow;
     
     void Start()
     {
@@ -44,6 +47,10 @@ public class Dialogue : MonoBehaviour
         else
         {
             gameObject.SetActive(false);
+            if(firstMission1stNPC)
+            {
+
+            }
         }
     }
     void Update()
