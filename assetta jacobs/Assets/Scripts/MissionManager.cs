@@ -100,4 +100,14 @@ public class MissionManager : MonoBehaviour
     {
         missionCompleted = true;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Trigger entered by: " + other.name);
+
+        if (other.CompareTag("Player")) // Change "Player" to the tag of the object you want to trigger the mission
+        {
+            MissionStart();
+        }
+    }
 }
