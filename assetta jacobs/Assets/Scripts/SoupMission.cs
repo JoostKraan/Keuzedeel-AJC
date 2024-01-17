@@ -14,8 +14,13 @@ public class SoupMission : MonoBehaviour
     [SerializeField] GameObject helpText;
     [SerializeField] GameObject helpDeliverSoupText;
     [SerializeField] GameObject thankYouText;
+
+    [SerializeField] GameObject _Soep;
+    [SerializeField] GameObject soepInPan;
     public bool isinRangeOfSoupDelivery = false;
     public bool soupIsGiven = false;
+    public bool isHoldingSoup = false;
+    public bool isInRange = false;
     void Start()
     {
         holdingItems = GameObject.FindObjectOfType<HoldingItems>();
@@ -26,13 +31,31 @@ public class SoupMission : MonoBehaviour
 
     void Update()
     {
-        if(holdingItems.isHoldingSoup)
+        if (isHoldingSoup)
+        {
+            _Soep.SetActive(true);
+        }
+        else
+        {
+            _Soep.SetActive(false);
+        }
+        if (isInRange)
+        {
+            if (Input.GetKey(KeyCode.E))
+            {
+                {
+                    isHoldingSoup = true;
+                    soepInPan.SetActive(false);
+                }
+            }
+        }
+        if (isHoldingSoup)
         {
             if (isinRangeOfSoupDelivery)
             {                
                 if (Input.GetKey(KeyCode.E))
                 {
-                    holdingItems.isHoldingSoup = false;
+                    isHoldingSoup = false;
                     placedSoup.SetActive(true);
                     helpDeliverSoupText.SetActive(false);
                     soupIsGiven = true;
@@ -57,6 +80,15 @@ public class SoupMission : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.CompareTag("InRangeOfSoup"))
+        {
+            isInRange = true;
+            if (!isHoldingSoup)
+            {
+                arrow.SetActive(false);
+                helpText.SetActive(true);
+            }
+        }
         if (other.gameObject.CompareTag("inRangeOfSoupDelivery"))
         {
             isinRangeOfSoupDelivery = true;
@@ -71,17 +103,23 @@ public class SoupMission : MonoBehaviour
                 helpDeliverSoupText.SetActive(false);
             }
         }
-        if (other.gameObject.CompareTag("Arrow"))
-        {
-            if(!holdingItems.isHoldingSoup)
-            {
-                arrow.SetActive(false);
-                helpText.SetActive(true);
-            }
-        }
     }
     private void OnTriggerExit(Collider other)
     {
+        if (other.gameObject.CompareTag("InRangeOfSoup"))
+        {
+            isInRange = false;
+            if (!isHoldingSoup)
+            {
+                arrow.SetActive(true);
+                helpText.SetActive(false);
+            }
+            if (isHoldingSoup)
+            {
+                arrow.SetActive(false);
+                helpText.SetActive(false);
+            }
+        }
         if (other.gameObject.CompareTag("inRangeOfSoupDelivery"))
         {
             isinRangeOfSoupDelivery = false;
@@ -94,19 +132,6 @@ public class SoupMission : MonoBehaviour
             {
                 deliveryArrow.SetActive(false);
                 helpDeliverSoupText.SetActive(false);
-            }
-        }
-        if (other.gameObject.CompareTag("Arrow"))
-        {
-            if (!holdingItems.isHoldingSoup)
-            {
-                arrow.SetActive(true);
-                helpText.SetActive(false);
-            }            
-            if (holdingItems.isHoldingSoup)
-            {
-                arrow.SetActive(false);
-                helpText.SetActive(false);
             }
         }
     }

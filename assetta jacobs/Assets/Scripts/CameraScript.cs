@@ -17,6 +17,8 @@ public class CameraScript : MonoBehaviour
     public float orbitSpeed = 3f;
     public bool isOrbiting = false;
 
+    [SerializeField] private GameObject backToMainMenuText;
+
     private void Update()
     {
         if (!target)
@@ -42,6 +44,12 @@ public class CameraScript : MonoBehaviour
             target = null;
             target = GameObject.FindGameObjectWithTag("OrbitTarget").transform;
             AutoOrbit();
+            backToMainMenuText.SetActive(true);
+            if (Input.GetMouseButton(0))
+            {
+                SceneLoadManager sceneLoadManager = GameObject.FindFirstObjectByType<SceneLoadManager>();
+                sceneLoadManager.MainMenu();
+            }
         }
     }
 

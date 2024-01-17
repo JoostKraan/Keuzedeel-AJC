@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
     private float verticalVelocity = 0.0f;
 
     Animator animator;
-    HoldingItems holdingItems;
     SoupMission soupMission;
 
     private void Start()
@@ -25,7 +24,6 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
 
         animator = meshToAnimate.gameObject.GetComponent<Animator>();
-        holdingItems = GetComponent<HoldingItems>();
         soupMission = GetComponent<SoupMission>();
     }
 
@@ -43,7 +41,7 @@ public class PlayerController : MonoBehaviour
         
         if(isAloudToMove)
         {
-            if (holdingItems.isHoldingSoup)
+            if (soupMission.isHoldingSoup)
             {
                 if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
                 {
@@ -60,7 +58,7 @@ public class PlayerController : MonoBehaviour
                     animator.SetBool("HoldingSoupIdle", true);
                 }
             }
-            else if (holdingItems.isHoldingSoup == false)
+            else if (soupMission.isHoldingSoup == false)
             {
                 if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
                 {
