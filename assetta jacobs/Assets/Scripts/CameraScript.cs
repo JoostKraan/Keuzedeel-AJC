@@ -14,6 +14,9 @@ public class CameraScript : MonoBehaviour
     private float currentRotationSpeed = 0.0f;
     private float inputX = 0.0f;
 
+    public float orbitSpeed = 3f;
+    public bool isOrbiting = false;
+
     private void Update()
     {
         if (!target)
@@ -22,14 +25,23 @@ public class CameraScript : MonoBehaviour
         // Capture horizontal mouse input for camera rotation
         inputX = Input.GetAxis("Mouse X");
 
-        // Apply acceleration and deceleration
-        if (Mathf.Abs(inputX) > 0.01f)
+        if(!isOrbiting)
         {
-            currentRotationSpeed = Mathf.Lerp(currentRotationSpeed, inputX * rotationSpeed, Time.deltaTime * acceleration);
+            // Apply acceleration and deceleration
+            if (Mathf.Abs(inputX) > 0.01f)
+            {
+                currentRotationSpeed = Mathf.Lerp(currentRotationSpeed, inputX * rotationSpeed, Time.deltaTime * acceleration);
+            }
+            else
+            {
+                currentRotationSpeed = Mathf.Lerp(currentRotationSpeed, 0, Time.deltaTime * deceleration);
+            }
         }
-        else
+        if (isOrbiting)
         {
-            currentRotationSpeed = Mathf.Lerp(currentRotationSpeed, 0, Time.deltaTime * deceleration);
+            target = null;
+            target = GameObject.FindGameObjectWithTag("OrbitTarget").transform;
+            AutoOrbit();
         }
     }
 
@@ -54,5 +66,15 @@ public class CameraScript : MonoBehaviour
         // Apply the final position and rotation to the camera
         transform.position = targetPosition;
         transform.LookAt(target);
+    }
+    void AutoOrbit()
+    {
+        // Calculate the desired rotation based on time
+        float rotationAmount = orbitSpeed * Time.deltaTime;
+        Quaternion deltaRotation = Quaternion.Euler(0, rotationAmount, 0);
+
+        // Apply the rotation to the camera position relative to the target
+        transform.RotateAround(target.position, Vector3.up, rotationAmount);
+        transform.LookAt(target.position);
     }
 }
