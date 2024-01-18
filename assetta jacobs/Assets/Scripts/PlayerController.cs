@@ -110,4 +110,11 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Idle", true);
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Snow"))
+        {
+            Debug.Log("Cool");
+        }
+    }
 }

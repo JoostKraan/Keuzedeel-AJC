@@ -47,13 +47,17 @@ public class SoupMission : MonoBehaviour
             cameraScript.isOrbiting = true;
 
         }
-        if(helpText.active == true)
+        if(helpText != null)
         {
-            if(Input.GetKey(KeyCode.E))
+            if (helpText.active == true)
             {
-                helpText.SetActive(false);
+                if (Input.GetKey(KeyCode.E))
+                {
+                    helpText.SetActive(false);
+                }
             }
         }
+       
     }
     private void OnTriggerEnter(Collider other)
     {

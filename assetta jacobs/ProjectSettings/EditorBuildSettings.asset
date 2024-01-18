@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Michel.unity
     guid: 30dc6b80ef871fe40b5ae61da59a738f
   - enabled: 1
-    path: Assets/Sjoerd.unity
+    path: Assets/Scenes/Sjoerd.unity
     guid: ddd812e865c53b5419b6ed8a9b14484d
   m_configObjects: {}

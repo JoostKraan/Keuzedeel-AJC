@@ -9,6 +9,7 @@ TagManager:
   - inRangeOfSoupDelivery
   - Arrow
   - OrbitTarget
+  - Snow
   layers:
   - Default
   - TransparentFX
